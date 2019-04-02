@@ -4,8 +4,17 @@ This application implements a RESTful api for money transfers between accounts.
 
 There are two methods exposed to the API:
 
- - get account info by account number (GET)
- - make transfer between two accounts (PUT/JSON)
+ - get account info by account number (GET) ```api/account/:account-number```
+ - make transfer between two accounts (PUT/JSON) ```api/transfer/```
+   accepted JSON format:
+    ```
+    {
+       "sourceNumber": "408717001",
+       "targetNumber": "408717002",
+       "amount": 1000
+   }
+    ```
+ 
  
 Features for account management are not in the scope and so haven't been implemented.
 In order to demonstrate implemented features, the application will create 3 accounts during startup, their numbers are:
@@ -23,7 +32,7 @@ Transfer operation consists of two steps:
  - make transfer between two accounts: Client must provide acquired token on step 1 in header "If-Match". 
     Operation will be performed only in case if token matches the value calculated on the server side.
 
-###Architecture
+### Architecture
 This project is divided into 3 layers (modules):
 - account-service-core: this module defines all the business logic and interfaces for interacting with other layers, has no dependencies on other modules and has mostly zero external dependencies
 - account-service-data: this module is responsible for interacting with storage (H2 in this case, but can be replaced)
@@ -31,7 +40,7 @@ This project is divided into 3 layers (modules):
 App dependency diagram: account-service-app -> account-service-data -> account-service-core
 
 
-###Data Model:
+### Data Model:
 - Account (id, accountNumber, balance, dateOpen)
 - Account Movement  (direction, amount, dateCreated, operation)
 - Operation (sourceAccount, targetAccount, amount, dateCreated)
@@ -40,14 +49,14 @@ Each transfer will produce Operation instance which will contain two movements (
 
 ### Build and run 
 
-####Build:
+#### Build:
 
 ```
 gradlew build
 ```
 
 
-####Run:
+#### Run:
 
 ```
 gradlew run
