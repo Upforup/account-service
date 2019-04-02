@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: init
+    author: erv
+    context: 'liquibase'
+    changes:
+    - sqlFile:
+        path: 'init.sql'
+        relativeToChangelogFile: true
+        stripComments: true
+    - sqlFile:
+          path: 'data.sql'
+          relativeToChangelogFile: true
+          stripComments: true
+
+

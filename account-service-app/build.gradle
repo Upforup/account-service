@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '4.0.2'
+    id 'idea'
+    id 'jacoco'
+
+}
+
+apply from: "$rootDir/integration-tests.gradle"
+
+repositories {
+    mavenCentral()
+}
+
+
+
+mainClassName = 'my.backend.test.solution.App'
+
+
+dependencies {
+
+    compile(project(path: ":account-service-core"))
+    compile(project(path: ":account-service-data"))
+    compile('com.google.guava:guava:27.1-jre')
+    compile('org.slf4j:slf4j-api:1.7.25')
+    compile('ch.qos.logback:logback-classic:1.2.3')
+    compile "com.google.inject:guice:4.2.2"
+    compile 'io.javalin:javalin:2.8.0'
+    compile('com.fasterxml.jackson.core:jackson-core:2.9.8')
+    compile('com.fasterxml.jackson.core:jackson-databind:2.9.8')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8')
+    compileOnly('org.projectlombok:lombok:1.18.6')
+
+    testCompile 'junit:junit:4.12'
+
+
+    integrationTestCompile 'junit:junit:4.12'
+    integrationTestCompile 'io.rest-assured:rest-assured:3.3.0'
+
+}
+
+jar.enabled = false
+tasks.build.dependsOn tasks.shadowJar

@@ -1,0 +1,5 @@
+rootProject.name = 'account-transfer-service'
+include 'account-service-core'
+include 'account-service-data'
+include 'account-service-app'
+
